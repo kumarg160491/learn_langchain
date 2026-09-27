@@ -1,0 +1,26 @@
+# Environment variables
+.env
+
+# Virtual environments
+.venv/
+
+# IDE files
+.idea/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Build artifacts
+build/
+dist/
+wheels/
+*.egg-info/
+
+# UV
+uv.lock
+
+# Python version
+.python-version
