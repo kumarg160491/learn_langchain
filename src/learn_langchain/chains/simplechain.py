@@ -16,29 +16,18 @@ llm = HuggingFaceEndpoint(
     max_new_tokens=1500,
 )
 
-prompt_1 = PromptTemplate(
-    template='Generate interesting facts on {topic}',
+prompt = PromptTemplate(
+    template='Generate 5 interesting facts on {topic}',
     input_variables=['topic'],
 )
 
-prompt_2 = PromptTemplate(
-    template='Write the summary that contain 5 interesting facts on {text}',
-    input_variables=['text']
-)
-
-model = ChatHuggingFace(llm=llm)
+model = ChatHuggingFace(llm = llm)
 
 parser = StrOutputParser()
 
-chain = (prompt_1
-         | model
-         | parser
-         | prompt_2
-         | model
-         | parser
-         )
+chain = prompt | model | parser
 
-result = chain.invoke({'topic': 'Unemployment in India'})
-# print(result)
+response = chain.invoke({'topic': 'cricket'})
+# print(response)
 
 chain.get_graph().print_ascii()
