@@ -26,6 +26,10 @@ class YTVideoRAGApplication:
             print('No caption available for this video')
 
     def splitting_transcript(self):
+        '''
+        Method to split the transcript into chunks
+        :return: Chunks of document
+        '''
         try:
             self.get_video_transcript()
             splitter = RecursiveCharacterTextSplitter(
@@ -37,6 +41,10 @@ class YTVideoRAGApplication:
             print(f"Error while splitting transcript: {e}")
 
     def create_embedding(self):
+        '''
+        Method to create the vector store for embedding
+        :return: vector store
+        '''
         try:
             self.splitting_transcript()
             self.vector_store = FAISS.from_documents(documents=self.chunks, embedding=self.embeddings)
@@ -44,6 +52,10 @@ class YTVideoRAGApplication:
             print(f"Error while creating embedding: {e}")
 
     def create_retriever(self):
+        '''
+        Method to create the retriever
+        :return: retriever
+        '''
         self.create_embedding()
         try:
             self.retriever = self.vector_store.as_retriever(search_type="similarity", search_kwargs={'k':3})
@@ -51,6 +63,10 @@ class YTVideoRAGApplication:
             print(f"Error while creating retriever: {e}")
 
     def creating_prompt(self):
+        '''
+        Method to create the prompt
+        :return: final prompt
+        '''
         self.create_retriever()
         prompt = PromptTemplate(
             template='''
