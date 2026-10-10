@@ -22,10 +22,10 @@ def get_weather(city: str) -> str:
     try:
         url = f"https://wttr.in/{city}?format=j1"
 
-        response = requests.get(url, timeout=10)
-        response.raise_for_status()
+        output_response = requests.get(url, timeout=10)
+        output_response.raise_for_status()
 
-        data = response.json()
+        data = output_response.json()
 
         current = data["current_condition"][0]
 
@@ -135,4 +135,4 @@ response = graph.invoke(
 )
 
 for message in response["messages"]:
-    print(message)
+    print(message.content)
